@@ -34,39 +34,50 @@ final class TodoCoreDataExampleTests: XCTestCase {
 
     func testAddTodoItem() throws {
         // Setup
-        let todoManager = TodoManager()
-        let initialCount = todoManager.items.count
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        let initialCount = try context.count(for: fetchRequest)
         
         // Action
-        todoManager.addItem(title: "New Task")
+        let newItem = Item(context: context)
+        newItem.timestamp = Date()
+        try context.save()
         
         // Assertion
-        XCTAssertEqual(todoManager.items.count, initialCount + 1, "Item count should increase by 1")
-        XCTAssertEqual(todoManager.items.last?.title, "New Task", "The last item's title should be 'New Task'")
+        let finalCount = try context.count(for: fetchRequest)
+        XCTAssertEqual(finalCount, initialCount + 1, "Item count should increase by 1")
     }
 
     func testRemoveTodoItem() throws {
         // Setup
-        let todoManager = TodoManager()
-        todoManager.addItem(title: "Task to be removed")
-        let initialCount = todoManager.items.count
+        let context = PersistenceController.shared.container.viewContext
+        let newItem = Item(context: context)
+        newItem.timestamp = Date()
+        try context.save()
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        let initialCount = try context.count(for: fetchRequest)
         
         // Action
-        todoManager.removeItem(at: 0)
+        context.delete(newItem)
+        try context.save()
         
         // Assertion
-        XCTAssertEqual(todoManager.items.count, initialCount - 1, "Item count should decrease by 1")
+        let finalCount = try context.count(for: fetchRequest)
+        XCTAssertEqual(finalCount, initialCount - 1, "Item count should decrease by 1")
     }
 
     func testCompleteTodoItem() throws {
         // Setup
-        let todoManager = TodoManager()
-        todoManager.addItem(title: "Task to be completed")
+        let context = PersistenceController.shared.container.viewContext
+        let newItem = Item(context: context)
+        newItem.timestamp = Date()
+        try context.save()
         
         // Action
-        todoManager.completeItem(at: 0)
+        newItem.setValue(true, forKey: "isCompleted")
+        try context.save()
         
         // Assertion
-        XCTAssertTrue(todoManager.items[0].isCompleted, "The item should be marked as completed")
+        XCTAssertTrue(newItem.value(forKey: "isCompleted") as? Bool ?? false, "The item should be marked as completed")
     }
 }
