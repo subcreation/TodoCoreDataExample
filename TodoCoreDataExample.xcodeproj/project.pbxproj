@@ -16,6 +16,7 @@
 		B29AB4DF2C15FDDF007B4069 /* TodoCoreDataExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AB4DE2C15FDDF007B4069 /* TodoCoreDataExampleTests.swift */; };
 		B29AB4E92C15FDDF007B4069 /* TodoCoreDataExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AB4E82C15FDDF007B4069 /* TodoCoreDataExampleUITests.swift */; };
 		B29AB4EB2C15FDDF007B4069 /* TodoCoreDataExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AB4EA2C15FDDF007B4069 /* TodoCoreDataExampleUITestsLaunchTests.swift */; };
+		B29AB4FC2C160CD8007B4069 /* TodosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AB4FB2C160CD8007B4069 /* TodosView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		B29AB4E42C15FDDF007B4069 /* TodoCoreDataExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoCoreDataExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B29AB4E82C15FDDF007B4069 /* TodoCoreDataExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCoreDataExampleUITests.swift; sourceTree = "<group>"; };
 		B29AB4EA2C15FDDF007B4069 /* TodoCoreDataExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCoreDataExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B29AB4FB2C160CD8007B4069 /* TodosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				B29AB4D22C15FDDF007B4069 /* TodoCoreDataExample.entitlements */,
 				B29AB4CB2C15FDDD007B4069 /* TodoCoreDataExample.xcdatamodeld */,
 				B29AB4D32C15FDDF007B4069 /* Preview Content */,
+				B29AB4FB2C160CD8007B4069 /* TodosView.swift */,
 			);
 			path = TodoCoreDataExample;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			files = (
 				B29AB4C82C15FDDD007B4069 /* TodoCoreDataExampleApp.swift in Sources */,
 				B29AB4CA2C15FDDD007B4069 /* Persistence.swift in Sources */,
+				B29AB4FC2C160CD8007B4069 /* TodosView.swift in Sources */,
 				B29AB4CF2C15FDDD007B4069 /* ContentView.swift in Sources */,
 				B29AB4CD2C15FDDD007B4069 /* TodoCoreDataExample.xcdatamodeld in Sources */,
 			);
