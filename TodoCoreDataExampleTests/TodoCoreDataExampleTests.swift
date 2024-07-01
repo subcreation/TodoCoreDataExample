@@ -32,4 +32,41 @@ final class TodoCoreDataExampleTests: XCTestCase {
         }
     }
 
+    func testAddTodoItem() throws {
+        // Setup
+        let todoManager = TodoManager()
+        let initialCount = todoManager.items.count
+        
+        // Action
+        todoManager.addItem(title: "New Task")
+        
+        // Assertion
+        XCTAssertEqual(todoManager.items.count, initialCount + 1, "Item count should increase by 1")
+        XCTAssertEqual(todoManager.items.last?.title, "New Task", "The last item's title should be 'New Task'")
+    }
+
+    func testRemoveTodoItem() throws {
+        // Setup
+        let todoManager = TodoManager()
+        todoManager.addItem(title: "Task to be removed")
+        let initialCount = todoManager.items.count
+        
+        // Action
+        todoManager.removeItem(at: 0)
+        
+        // Assertion
+        XCTAssertEqual(todoManager.items.count, initialCount - 1, "Item count should decrease by 1")
+    }
+
+    func testCompleteTodoItem() throws {
+        // Setup
+        let todoManager = TodoManager()
+        todoManager.addItem(title: "Task to be completed")
+        
+        // Action
+        todoManager.completeItem(at: 0)
+        
+        // Assertion
+        XCTAssertTrue(todoManager.items[0].isCompleted, "The item should be marked as completed")
+    }
 }
