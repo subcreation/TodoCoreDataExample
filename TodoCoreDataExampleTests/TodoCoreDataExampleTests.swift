@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import CoreData
 
 final class TodoCoreDataExampleTests: XCTestCase {
 
@@ -30,11 +31,10 @@ final class TodoCoreDataExampleTests: XCTestCase {
         measure {
             // Put the code you want to measure the time of here.
         }
-    }
 
     func testAddTodoItem() throws {
         // Setup
-        let context = PersistenceController.shared.container.viewContext
+        let context = Persistence.shared.container.viewContext
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
         let initialCount = try context.count(for: fetchRequest)
         
@@ -50,7 +50,7 @@ final class TodoCoreDataExampleTests: XCTestCase {
 
     func testRemoveTodoItem() throws {
         // Setup
-        let context = PersistenceController.shared.container.viewContext
+        let context = Persistence.shared.container.viewContext
         let newItem = Item(context: context)
         newItem.timestamp = Date()
         try context.save()
@@ -68,7 +68,7 @@ final class TodoCoreDataExampleTests: XCTestCase {
 
     func testCompleteTodoItem() throws {
         // Setup
-        let context = PersistenceController.shared.container.viewContext
+        let context = Persistence.shared.container.viewContext
         let newItem = Item(context: context)
         newItem.timestamp = Date()
         try context.save()
