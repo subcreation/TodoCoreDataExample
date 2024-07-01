@@ -29,4 +29,12 @@ final class TodoCoreDataExampleUITestsLaunchTests: XCTestCase {
         attachment.lifetime = .keepAlways
         add(attachment)
     }
+
+    func testInitialLaunchState() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        // Assertion
+        XCTAssertTrue(app.tables.cells.count > 0, "The initial state should have some todo items")
+    }
 }

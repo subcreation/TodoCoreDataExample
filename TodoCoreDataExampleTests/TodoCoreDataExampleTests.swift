@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import CoreData
 
 final class TodoCoreDataExampleTests: XCTestCase {
 
@@ -30,6 +31,53 @@ final class TodoCoreDataExampleTests: XCTestCase {
         measure {
             // Put the code you want to measure the time of here.
         }
+
+    func testAddTodoItem() throws {
+        // Setup
+        let context = Persistence.shared.container.viewContext
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        let initialCount = try context.count(for: fetchRequest)
+        
+        // Action
+        let newItem = Item(context: context)
+        newItem.timestamp = Date()
+        try context.save()
+        
+        // Assertion
+        let finalCount = try context.count(for: fetchRequest)
+        XCTAssertEqual(finalCount, initialCount + 1, "Item count should increase by 1")
     }
 
+    func testRemoveTodoItem() throws {
+        // Setup
+        let context = Persistence.shared.container.viewContext
+        let newItem = Item(context: context)
+        newItem.timestamp = Date()
+        try context.save()
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        let initialCount = try context.count(for: fetchRequest)
+        
+        // Action
+        context.delete(newItem)
+        try context.save()
+        
+        // Assertion
+        let finalCount = try context.count(for: fetchRequest)
+        XCTAssertEqual(finalCount, initialCount - 1, "Item count should decrease by 1")
+    }
+
+    func testCompleteTodoItem() throws {
+        // Setup
+        let context = Persistence.shared.container.viewContext
+        let newItem = Item(context: context)
+        newItem.timestamp = Date()
+        try context.save()
+        
+        // Action
+        newItem.setValue(true, forKey: "isCompleted")
+        try context.save()
+        
+        // Assertion
+        XCTAssertTrue(newItem.value(forKey: "isCompleted") as? Bool ?? false, "The item should be marked as completed")
+    }
 }

@@ -38,4 +38,44 @@ final class TodoCoreDataExampleUITests: XCTestCase {
             }
         }
     }
+
+    func testAddTodoItemUI() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        // Action
+        app.buttons["Add"].tap()
+        let textField = app.textFields["New Task"]
+        textField.tap()
+        textField.typeText("Buy groceries")
+        app.buttons["Save"].tap()
+        
+        // Assertion
+        XCTAssertTrue(app.staticTexts["Buy groceries"].exists, "The new task should be displayed in the list")
+    }
+
+    func testCompleteTodoItemUI() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        // Action
+        let firstCell = app.tables.cells.element(boundBy: 0)
+        firstCell.buttons["Complete"].tap()
+        
+        // Assertion
+        XCTAssertTrue(firstCell.buttons["Completed"].exists, "The task should be marked as completed")
+    }
+
+    func testDeleteTodoItemUI() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        // Action
+        let firstCell = app.tables.cells.element(boundBy: 0)
+        firstCell.swipeLeft()
+        firstCell.buttons["Delete"].tap()
+        
+        // Assertion
+        XCTAssertFalse(firstCell.exists, "The task should be deleted from the list")
+    }
 }
